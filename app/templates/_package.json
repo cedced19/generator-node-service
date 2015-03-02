@@ -1,0 +1,39 @@
+{
+  "name": "<%= _.slugify(title) %>",
+  "version": "0.0.0",
+  "description": "<%= description %>",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-autoprefixer": "^2.2.0",
+    "grunt-contrib-concat": "^0.5.0",
+    "grunt-contrib-copy": "~0.8.0",
+    "grunt-contrib-cssmin": "^0.12.2",
+    "grunt-contrib-htmlmin": "0.4.0",
+    "grunt-contrib-uglify": "0.8.0",
+    "grunt-uncss": "0.4.0",
+    "grunt-usemin": ">=3.0.0",
+    "matchdep": "~0.3.0",
+    "time-grunt": "^1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/<%= name %>/<%= _.slugify(title) %>"
+  },
+  "bugs": {
+    "url": "https://github.com/<%= name %>/<%= _.slugify(title) %>/issues"
+  },
+  "bin": {},
+  "homepage": "https://github.com/<%= name %>/<%= _.slugify(title) %>",
+  "keywords": [],
+  "author": {
+    "name": "<%= name %>",
+    "email": "<%= email %>",
+    "url": "https://github.com/<%= github %>/<%= _.slugify(title) %>"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ]
+}
