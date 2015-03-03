@@ -4,8 +4,8 @@
   "description": "Yeoman generator for a service build in node.",
   "licenses": [
     {
-        "type": "MIT",
-        "url": "http://cedced19.github.io/license/"
+      "type": "MIT",
+      "url": "http://cedced19.github.io/license/"
     }
   ],
   "main": "app/index.js",
@@ -36,8 +36,9 @@
     "grunt"
   ],
   "dependencies": {
-    "yeoman-generator": ">=0.17.1",
     "chalk": "~1.0.0",
+    "slug": "^0.8.0",
+    "yeoman-generator": ">=0.17.1",
     "yosay": "1.0.0"
   },
   "devDependencies": {
