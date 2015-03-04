@@ -20,26 +20,36 @@ var NodeServiceGenerator = yeoman.generators.Base.extend({
     this.log(yosay('Welcome to the marvelous static angular generator!'));
     var prompts = [
       {
+        type: 'string',
         name: 'title',
         message: 'What is the title of your application?',
         default: 'Hello World'
       },
       {
+        type: 'string',
         name: 'description',
         message: 'Please describe your app:',
         default: 'A app.'
+      },{
+        type: 'string',
+        name: 'port',
+        message: 'What is the port of your chat?',
+        default: '1337'
       },
       {
+        type: 'string',
         name: 'name',
         message: 'What is your name?',
         default: 'C\xE9dric'
       },
       {
+        type: 'string',
         name: 'github',
         message: 'What is your github?',
         default: 'cedced19'
       },
       {
+        type: 'string',
         name: 'email',
         message: 'What is your email?',
         default: 'user@domain.com'
@@ -58,6 +68,7 @@ var NodeServiceGenerator = yeoman.generators.Base.extend({
       this.github = props.github;
       this.email = props.email;
       this.socket = props.socket;
+      this.port = props.port;
       done();
     }.bind(this));
   },
@@ -73,8 +84,9 @@ var NodeServiceGenerator = yeoman.generators.Base.extend({
     this.template('vendor/css/main.css', 'vendor/css/main.css');
     this.template('_package.json', 'package.json');
     this.template('app.js', slug(this.title).toLowerCase() + '.js');
+    this.copy('favicon.ico', 'favicon.ico');
     this.copy('gitignore', '.gitignore');
-    this.copy('gitignore', '.gitignore');
+    this.copy('dist/npmignore', 'dist/.npmignore');
     this.template('Gruntfile.js', 'Gruntfile.js');
     this.template('README.md', 'README.md');
   }

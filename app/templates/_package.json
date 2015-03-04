@@ -15,15 +15,22 @@
     "matchdep": "~0.3.0",
     "time-grunt": "^1.0.0"
   },
+  "dependencies": {
+    "check-update": "0.0.7",
+    "colors": "^1.0.3",
+    "commander": "^2.5.0",
+    <% if (socket) { %>"socket.io": "^1.0.6",<% } %>
+    "hapi": "^8.1.0"
+  },
   "repository": {
     "type": "git",
-    "url": "git://github.com/<%= name %>/<%= _.slugify(title) %>"
+    "url": "git://github.com/<%= github %>/<%= _.slugify(title) %>"
   },
   "bugs": {
-    "url": "https://github.com/<%= name %>/<%= _.slugify(title) %>/issues"
+    "url": "https://github.com/<%= github %>/<%= _.slugify(title) %>/issues"
   },
   "bin": {},
-  "homepage": "https://github.com/<%= name %>/<%= _.slugify(title) %>",
+  "homepage": "https://github.com/<%= github %>/<%= _.slugify(title) %>",
   "keywords": [],
   "author": {
     "name": "<%= name %>",

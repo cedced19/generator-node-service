@@ -1,68 +1,85 @@
+var path = require('path');
 module.exports = function(grunt) {
-     require('time-grunt')(grunt);
-     var config = {
-    usemin: {
-        html: ['index.html']
-    },
-    htmlmin: {
-            dist: {
-              options: {
-                removeComments: true,
-                collapseWhitespace: true
-              },
-              files: {
-                'index.html': 'index.html'
-              }
-          }
-    },
+  require('time-grunt')(grunt);
+  var config = {
     copy: {
-      main: {
+      src: {
+        files: [{
           expand: true,
-          cwd: 'dev/',
-          src: ['**/*.html', 'styles/*.css'],
-          dest: ''
+          src: [
+            'index.html',
+            'vendor/**/*.*',
+            'package.json',
+            'favicon.ico',
+            '<%= _.slugify(title) %>.js',
+            'README.md'
+          ],
+          dest: 'dist/'
+        }]
       }
     },
-    concat: {
-        main:{
-          files:[
-             {
-              dest: 'scripts/scripts.js',
-              src: [ 'dev/scripts/angular.min.js', 'dev/scripts/app.js' ]
-              }
-             ]
-        }
-    },
-    uglify:{
-      main: {
-        files: [
-                  {
-                    dest: 'scripts/scripts.js',
-                    src: [ 'scripts/scripts.js' ]
+  useminPrepare: {
+      html: 'index.html',
+      options: {
+                    flow: {
+                      html: {
+                          steps: {
+                            js: ['concat', 'uglifyjs'],
+                              css: [
+                                  {
+                                      name: 'uncss',
+                                      createConfig: function (context, block) {
+                                          context.outFiles = [block.dest];
+                                          return {
+                                              files: [{
+                                                  dest: path.join(context.outDir, block.dest),
+                                                  src: ['index.html']
+                                              }]
+                                          };
+                                      }
+                                  },
+                                  {
+                                    name: 'autoprefixer',
+                                    createConfig: function (context, block) {
+                                        context.outFiles = [block.dest];
+                                        return {
+                                          options: {
+                                              browsers: ['last 2 versions', 'ie 8', 'ie 9']
+                                            },
+                                            files: [{
+                                                src: path.join(context.inDir, block.dest),
+                                                dest: path.join(context.outDir, block.dest)
+                                            }]
+                                        };
+                                    }
+                                },
+                                'cssmin'
+                              ]
+                          },
+                          post: {}
+                      }
                   }
-               ]
-             }
-       },
-      cssmin: {
-        main: {
+              }
+          },
+  usemin: {
+    html: 'dist/*.html'
+  },
+  htmlmin: {
+        dist: {
+          options: {
+            removeComments: true,
+            collapseWhitespace: true
+          },
           files: {
-            'styles/styles.css': ['styles/main.css']
-          }
-        }
-      },
-      autoprefixer: {
-          main: {
-            expand: true,
-            flatten: true,
-            src: 'styles/*.css',
-            dest: 'styles/'
+            'dist/index.html': 'dist/index.html'
           }
       }
+  }
 };
 
   grunt.initConfig(config);
 
   // Load all Grunt tasks
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
-  grunt.registerTask('default', ['copy', 'concat', 'uglify', 'cssmin', 'autoprefixer', 'usemin', 'htmlmin']);
+  grunt.registerTask('default', ['copy', 'useminPrepare', 'concat', 'uglify', 'uncss', 'autoprefixer', 'cssmin', 'usemin', 'htmlmin']);
 };
