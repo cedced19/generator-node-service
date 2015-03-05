@@ -83,7 +83,7 @@ var NodeServiceGenerator = yeoman.generators.Base.extend({
     this.template('vendor/js/app.js', 'vendor/js/app.js');
     this.template('vendor/css/main.css', 'vendor/css/main.css');
     this.template('_package.json', 'package.json');
-    this.template('app.js', slug(this.title).toLowerCase() + '.js');
+    this.template('app.js', slug(this.title.toLowerCase()) + '.js');
     this.copy('favicon.ico', 'favicon.ico');
     this.copy('gitignore', '.gitignore');
     this.copy('dist/npmignore', 'dist/.npmignore');
