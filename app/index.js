@@ -59,6 +59,18 @@ var NodeServiceGenerator = yeoman.generators.Base.extend({
         name: 'socket',
         message: 'Would you like socket.io?',
         default: false
+      },
+      {
+        type: 'confirm',
+        name: 'check',
+        message: 'Would you like check-update?',
+        default: true
+      },
+      {
+        type: 'confirm',
+        name: 'checkGithub',
+        message: 'Would you like check-update-github?',
+        default: false
       }
     ];
     this.prompt(prompts, function (props) {
@@ -69,6 +81,8 @@ var NodeServiceGenerator = yeoman.generators.Base.extend({
       this.email = props.email;
       this.socket = props.socket;
       this.port = props.port;
+      this.check = props.check;
+      this.checkGithub = props.checkGithub;
       done();
     }.bind(this));
   },

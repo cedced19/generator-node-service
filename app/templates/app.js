@@ -41,11 +41,20 @@ app.route({
 });
 
 app.start(function() {
+    <% if (check) { %>
     require('check-update')({packageName: pkg.name, packageVersion: pkg.version, isCLI: true}, function(err, latestVersion, defaultMessage){
         if(!err){
             console.log(defaultMessage);
         }
     });
+    <% } %>
+    <% if (checkGithub) { %>
+    require('check-update-github')({name: pkg.name, currentVersion: pkg.version, user: <%= github %>, branch: 'master'}, function(err, latestVersion, defaultMessage){
+        if(!err){
+            console.log(defaultMessage);
+        }
+    });
+    <% } %>
     console.log('Server running at\n  => ' + colors.green('http://localhost:' + port) + '\nCTRL + C to shutdown');
 });
 

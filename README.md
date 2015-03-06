@@ -1,7 +1,6 @@
 # Node Service  Generator
 [![Build Status](https://travis-ci.org/cedced19/generator-node-service.svg)](https://travis-ci.org/cedced19/generator-node-service)
 [![NPM version](http://badge.fury.io/js/generator-node-service.svg)](http://badge.fury.io/js/generator-node-service)
-__Work in progress__
 
 Note: This is my vision of how we must make a app.
 
