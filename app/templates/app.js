@@ -13,6 +13,11 @@ program
   .option('-p, --port [number]', 'specified the port')
   .parse(process.argv);
 
+if (!isNaN(parseFloat(program.port)) && isFinite(program.port)){
+  port = program.port;
+}
+app.connection({ port: port });
+
 app.route({
     method: 'GET',
     path: '/vendor/{param*}',

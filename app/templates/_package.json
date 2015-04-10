@@ -18,8 +18,8 @@
   "dependencies": {
     "colors": "^1.0.3",
     "commander": "^2.5.0",
-    <% if (check) { %>"check-update": "0.0.7",<% } %>
-    <% if (checkGithub) { %>"check-update-github": "0.0.2",<% } %>
+    <% if (check) { %>"check-update": "0.0.8",<% } %>
+    <% if (checkGithub) { %>"check-update-github": "0.0.3",<% } %>
     <% if (socket) { %>"socket.io": "^1.0.6",<% } %>
     "hapi": "^8.1.0"
   },

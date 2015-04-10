@@ -20,7 +20,7 @@ Bower:
 $ npm install -g bower
 ```
 
-Generator-Chat:
+Generator-Node-Service:
 
 ```bash
 $ npm install -g generator-node-service
