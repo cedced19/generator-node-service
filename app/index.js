@@ -5,6 +5,8 @@ var yeoman = require('yeoman-generator');
 var yosay = require('yosay');
 var chalk = require('chalk');
 var slug = require('slug');
+var mkdir = require('mkdirp');
+var _ = require('lodash');
 var NodeServiceGenerator = yeoman.generators.Base.extend({
   init: function () {
     this.pkg = require('../package.json');
@@ -17,7 +19,7 @@ var NodeServiceGenerator = yeoman.generators.Base.extend({
   askFor: function () {
     var done = this.async();
     // Have Yeoman greet the user.
-    this.log(yosay('Welcome to the marvelous static angular generator!'));
+    this.log(yosay('Welcome to the marvelous node service generator!'));
     var prompts = [
       {
         type: 'string',
@@ -88,11 +90,11 @@ var NodeServiceGenerator = yeoman.generators.Base.extend({
   },
     
   app: function () {
-    this.mkdir('lib');
-    this.mkdir('vendor/js');
-    this.mkdir('vendor/css');
-    this.mkdir('vendor/fonts');
-    this.mkdir('dist');
+    mkdir('lib');
+    mkdir('vendor/js');
+    mkdir('vendor/css');
+    mkdir('vendor/fonts');
+    mkdir('dist');
     this.template('index.html', 'index.html');
     this.template('vendor/js/app.js', 'vendor/js/app.js');
     this.template('vendor/css/main.css', 'vendor/css/main.css');
