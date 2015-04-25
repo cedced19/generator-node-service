@@ -4,9 +4,8 @@ var path = require('path');
 var yeoman = require('yeoman-generator');
 var yosay = require('yosay');
 var chalk = require('chalk');
-var slug = require('slug');
 var mkdir = require('mkdirp');
-var _ = require('lodash');
+var _ = require('underscore.string');
 var NodeServiceGenerator = yeoman.generators.Base.extend({
   init: function () {
     this.pkg = require('../package.json');
@@ -99,7 +98,7 @@ var NodeServiceGenerator = yeoman.generators.Base.extend({
     this.template('vendor/js/app.js', 'vendor/js/app.js');
     this.template('vendor/css/main.css', 'vendor/css/main.css');
     this.template('_package.json', 'package.json');
-    this.template('app.js', slug(this.title.toLowerCase()) + '.js');
+    this.template('app.js', _.slugify(this.title.toLowerCase()) + '.js');
     this.copy('favicon.ico', 'favicon.ico');
     this.copy('gitignore', '.gitignore');
     this.copy('dist/npmignore', 'dist/.npmignore');

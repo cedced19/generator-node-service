@@ -37,9 +37,8 @@
   ],
   "dependencies": {
     "chalk": "~1.0.0",
-    "lodash": "^3.7.0",
     "mkdirp": "^0.5.0",
-    "slug": "^0.8.0",
+    "underscore.string": "^3.0.3",
     "yeoman-generator": ">=0.17.1",
     "yosay": "1.0.0"
   },
