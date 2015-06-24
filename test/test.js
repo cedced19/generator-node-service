@@ -1,109 +1,57 @@
 'use strict';
-var util = require('util');
-var path = require('path');
-var yeoman = require('yeoman-generator');
-var yosay = require('yosay');
-var chalk = require('chalk');
-var mkdir = require('mkdirp');
-var _ = require('underscore.string');
-var NodeServiceGenerator = yeoman.generators.Base.extend({
-  init: function () {
-    this.pkg = require('../package.json');
-    this.on('end', function () {
-      if (!this.options['skip-install']) {
-        this.installDependencies();
-      }
-    });
-  },
-  askFor: function () {
-    var done = this.async();
-    // Have Yeoman greet the user.
-    this.log(yosay('Welcome to the marvelous node service generator!'));
-    var prompts = [
-      {
-        type: 'string',
-        name: 'title',
-        message: 'What is the title of your application?',
-        default: 'Hello World'
-      },
-      {
-        type: 'string',
-        name: 'description',
-        message: 'Please describe your app:',
-        default: 'A app.'
-      },{
-        type: 'string',
-        name: 'port',
-        message: 'What is the port of your chat?',
-        default: '1337'
-      },
-      {
-        type: 'string',
-        name: 'name',
-        message: 'What is your name?',
-        default: 'C\xE9dric'
-      },
-      {
-        type: 'string',
-        name: 'github',
-        message: 'What is your github?',
-        default: 'cedced19'
-      },
-      {
-        type: 'string',
-        name: 'email',
-        message: 'What is your email?',
-        default: 'user@domain.com'
-      },
-      {
-        type: 'confirm',
-        name: 'socket',
-        message: 'Would you like socket.io?',
-        default: false
-      },
-      {
-        type: 'confirm',
-        name: 'check',
-        message: 'Would you like check-update?',
-        default: true
-      },
-      {
-        type: 'confirm',
-        name: 'checkGithub',
-        message: 'Would you like check-update-github?',
-        default: false
-      }
+var path = require('path'),
+  helpers = require('yeoman-generator').test,
+  assert = require('yeoman-generator').assert;
+
+describe('Node Servicegenerator', function () {
+  // not testing the actual run of generators yet
+  it('the generator can be required without throwing', function () {
+    this.app = require('../app');
+  });
+
+  describe('run test', function () {
+
+    var expectedContent = [
+      ['package.json', /"version": "0.0.0"/]
     ];
-    this.prompt(prompts, function (props) {
-      this.title = props.title;
-      this.description = props.description;
-      this.name = props.name;
-      this.github = props.github;
-      this.email = props.email;
-      this.socket = props.socket;
-      this.port = props.port;
-      this.check = props.check;
-      this.checkGithub = props.checkGithub;
-      done();
-    }.bind(this));
-  },
-    
-  app: function () {
-    mkdir('lib');
-    mkdir('vendor/js');
-    mkdir('vendor/css');
-    mkdir('vendor/fonts');
-    mkdir('dist');
-    this.template('index.html', 'index.html');
-    this.template('vendor/js/app.js', 'vendor/js/app.js');
-    this.template('vendor/css/main.css', 'vendor/css/main.css');
-    this.template('_package.json', 'package.json');
-    this.template('app.js', _.slugify(this.title.toLowerCase()) + '.js');
-    this.copy('favicon.ico', 'favicon.ico');
-    this.copy('gitignore', '.gitignore');
-    this.copy('dist/npmignore', 'dist/.npmignore');
-    this.template('Gruntfile.js', 'Gruntfile.js');
-    this.template('README.md', 'README.md');
-  }
+    var expected = [
+      '.gitignore',
+      'gulpfile.js',
+      'package.json',
+      'README.md',
+      'index.html',
+      'vendor/css/main.css',
+      'vendor/js/app.js'
+    ];
+
+    var options = {
+      'skip-install-message': true,
+      'skip-install': true,
+      'skip-welcome-message': true,
+      'skip-message': true
+    };
+
+    var runGen;
+
+    beforeEach(function () {
+      runGen = helpers
+        .run(path.join(__dirname, '../app'))
+        .inDir(path.join(__dirname, '.tmp'))
+        .withGenerators([[helpers.createDummyGenerator(), 'mocha:app']]);
+    });
+
+     it('creates expected files', function (done) {
+      runGen.withOptions(options).on('end', function () {
+
+        assert.file(expected);
+        assert.fileContent(expectedContent);
+
+        assert.noFileContent([
+          ['package.json', /check-update-github/],
+          ['package.json', /socket.io/]
+        ]);
+        done();
+      });
+    });
+  });
 });
-module.exports = NodeServiceGenerator;

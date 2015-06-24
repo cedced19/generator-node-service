@@ -4,8 +4,6 @@ Work in progress!
 
 <%= description %>
 
-[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
-
 ## Options
 
 ```

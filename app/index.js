@@ -6,6 +6,8 @@ var yosay = require('yosay');
 var chalk = require('chalk');
 var mkdir = require('mkdirp');
 var _ = require('underscore.string');
+
+
 var NodeServiceGenerator = yeoman.generators.Base.extend({
   init: function () {
     this.pkg = require('../package.json');
@@ -24,7 +26,7 @@ var NodeServiceGenerator = yeoman.generators.Base.extend({
         type: 'string',
         name: 'title',
         message: 'What is the title of your application?',
-        default: 'Hello World'
+        default: this.appname
       },
       {
         type: 'string',
@@ -53,7 +55,7 @@ var NodeServiceGenerator = yeoman.generators.Base.extend({
         type: 'string',
         name: 'email',
         message: 'What is your email?',
-        default: 'user@domain.com'
+        default: 'cedced19@gmail.com'
       },
       {
         type: 'confirm',
@@ -87,13 +89,13 @@ var NodeServiceGenerator = yeoman.generators.Base.extend({
       done();
     }.bind(this));
   },
-    
+
   app: function () {
     mkdir('lib');
     mkdir('vendor/js');
     mkdir('vendor/css');
     mkdir('vendor/fonts');
-    mkdir('dist');
+
     this.template('index.html', 'index.html');
     this.template('vendor/js/app.js', 'vendor/js/app.js');
     this.template('vendor/css/main.css', 'vendor/css/main.css');
@@ -101,9 +103,10 @@ var NodeServiceGenerator = yeoman.generators.Base.extend({
     this.template('app.js', _.slugify(this.title.toLowerCase()) + '.js');
     this.copy('favicon.ico', 'favicon.ico');
     this.copy('gitignore', '.gitignore');
-    this.copy('dist/npmignore', 'dist/.npmignore');
-    this.template('Gruntfile.js', 'Gruntfile.js');
+    this.template('gulpfile.js', 'gulpfile.js');
     this.template('README.md', 'README.md');
   }
 });
+
+
 module.exports = NodeServiceGenerator;

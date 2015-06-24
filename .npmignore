@@ -1,4 +1,4 @@
 .npmignore
-.editorconfig
+.gitignore
 .travis.yml
-/test/
+test/.tmp

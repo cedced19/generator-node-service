@@ -44,7 +44,7 @@ $ npm start
 To launch in release:
 
 ```bash
-$ grunt
+$ gulp
 $ cd dist/
 $ npm start
 ```
